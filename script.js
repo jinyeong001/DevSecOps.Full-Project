@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // 초기 화면 숨기기
             document.getElementById('home-content').classList.remove('show', 'active');
             
-            // team.md 로드
-            const response = await fetch('md/team.md');
+            // Team.md 로드 (소문자 team을 대문자 Team으로 수정)
+            const response = await fetch('md/Team.md');
             const text = await response.text();
             const htmlContent = marked.parse(text);
             document.getElementById('markdown-content').innerHTML = htmlContent;
