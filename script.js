@@ -114,15 +114,19 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('nav-team').addEventListener('click', async function(e) {
         e.preventDefault();
         try {
-            // 초기 화면 숨기기
-            document.getElementById('home-content').classList.remove('show', 'active');
+            // 모든 탭 패널 숨기기
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('show', 'active');
+            });
             
-            // Team.md 로드 (소문자 team을 대문자 Team으로 수정)
-            const response = await fetch('md/Team.md');
+            // markdown-content가 있는 패널 활성화
+            document.getElementById('main-list-item-1-content').classList.add('show', 'active');
+            
+            // 마크다운 콘텐츠 로드
+            const response = await fetch('md/team.md');
             const text = await response.text();
             const htmlContent = marked.parse(text);
             document.getElementById('markdown-content').innerHTML = htmlContent;
-            document.getElementById('main-list-item-1-content').classList.add('show', 'active');
             
             // 활성 상태 표시
             document.querySelectorAll('.nav-link').forEach(link => {
