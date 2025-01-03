@@ -13,6 +13,6 @@
 김병윤 김지훈 노윤서 손혜영 이주원
 
 ## Lab Git Repository
-- [https://github.com/jinyeong001/DevSecOps.Full.Project.git](https://github.com/jinyeong001/DevSecOps.Full.Project.git)
+- [https://github.com/jinyeong001/DevSecOps.Full-Project.git](https://github.com/jinyeong001/DevSecOps.Full-Project.git)
 - [https://github.com/GH6679/web_wargamer.git](https://github.com/GH6679/web_wargamer.git)
 
