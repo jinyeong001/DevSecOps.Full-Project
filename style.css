@@ -1,169 +1,89 @@
-/* 사이드바 스타일 */
-.sidebar {
+body {
     height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    flex-shrink: 0;
+}
+
+.container-fluid {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+}
+
+/* 왼쪽 사이드바 (목차) */
+.col-2 {
+    height: calc(100vh - 56px); /* navbar 높이만큼 뺌 */
     overflow-y: auto;
-    width: 300px;
-    padding: 20px;
-    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    background: white;
     border-right: 1px solid #dee2e6;
 }
 
-/* 메인 콘텐츠 영역 스타일 */
-.main-content {
-    margin-left: 300px;
-    padding: 20px;
+/* 메인 콘텐츠 영역 */
+.col-10 {
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    padding-left: 40px;     /* 왼쪽 여백 증가 */
+    padding-right: 20px;    /* 오른쪽 여백 추가 */
 }
 
-/* 목차 스타일 */
-.table-of-contents {
-    background-color: #f8f9fa;
+/* 브레드크럼 고정 */
+.breadcrumb {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1000;
+    padding: 10px 0;
+    margin: 0;
+    border-bottom: 1px solid #dee2e6;
 }
 
-/* 목차 아이템 스타일 */
-.list-group-item {
-    border: none;
-    padding: 0.5rem 1rem;
-}
-
-.list-group-item-action:hover {
-    background-color: #e9ecef;
-}
-
-/* 들여쓰기된 목차 아이템 */
-.ps-4 {
-    padding-left: 2.5rem !important;
-}
-
-/* 활성화된 목차 아이템 */
-.list-group-item.active {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
-}
-
-/* 마크다운 콘텐츠 스타일 */
-#markdown-content {
-    padding: 20px;
-    line-height: 1.6;
-}
-
-/* 스크롤바 스타일 */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    
-    .main-content {
-        margin-left: 0;
-    }
-}
-
-/* 링크 스타일 */
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* 헤더 스타일 */
-h1, h2, h3, h4, h5, h6 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-/* 목차 collapse 애니메이션 */
-.collapse {
-    transition: all 0.2s ease;
-}
-
-/* 목차 구분선 */
-.list-group + .list-group-item {
-    border-top: 1px solid rgba(0,0,0,.125);
-}
-
-/* 마크다운 콘텐츠 내 테이블 스타일 */
-#markdown-content table {
+/* 코드 콘텐츠 영역 */
+#code-content {
+    position: sticky;
+    top: 20px;
+    padding: 15px;
+    border-left: 1px solid #dee2e6;
+    height: calc(100vh - 76px); /* navbar 높이(56px) + 여백(20px) */
     width: 100%;
-    margin-bottom: 1rem;
-    border-collapse: collapse;
+    overflow-y: auto;
 }
 
-#markdown-content th,
-#markdown-content td {
-    padding: 0.75rem;
-    border: 1px solid #dee2e6;
+.show-code {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-#markdown-content th {
-    background-color: #f8f9fa;
+/* 메인 콘텐츠의 스크롤 영역 */
+.tab-content {
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    width: 100%;
 }
 
-/* 코드 블록 스타일 */
-#markdown-content pre {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-radius: 4px;
-    overflow-x: auto;
+/* 번호 목록 스타일 */
+.col-10 ol {
+    padding-left: 20px;   /* 기본 들여쓰기 최소화 */
+    margin: 0;           /* 여백 제거 */
+    line-height: 1.4;    /* 줄 간격 */
 }
 
-#markdown-content code {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 0.875em;
+.col-10 ol li {
+    padding-left: 0;     /* 항목 들여쓰기 제거 */
+    margin: 0;           /* 항목 간 여백 제거 */
+    line-height: 1.4;    /* 항목 내 줄 간격 */
 }
 
-/* 초기 화면 스타일 */
-.initial-content {
-    padding: 50px 20px;
-    margin-top: 50px;
-}
-
-.main-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    color: #333;
-}
-
-.logo-img {
-    max-width: 300px;
-    height: auto;
-    margin: 2rem 0;
-}
-
-.footer-text {
-    margin-top: 3rem;
-}
-
-.organization {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.date {
-    font-size: 1rem;
-    color: #666;
+.col-10 ol li + li {
+    margin-top: 0.2rem;  /* 연속된 항목 간 간격 */
 }

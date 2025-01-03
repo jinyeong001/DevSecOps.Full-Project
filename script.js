@@ -141,5 +141,32 @@ document.addEventListener('DOMContentLoaded', function () {
     // 초기화 시 Home 버튼 활성화
     document.getElementById('nav-home').classList.add('active');
 
+    // 코드 표시 기능 추가
+    document.addEventListener('click', async function(e) {
+        if (e.target.classList.contains('show-code')) {
+            e.preventDefault();
+            const codeFile = e.target.dataset.codeFile;
+            try {
+                const response = await fetch(`code/${codeFile}.md`);
+                const text = await response.text();
+                const htmlContent = marked.parse(text);
+                
+                const codeContent = document.getElementById('code-content');
+                codeContent.innerHTML = htmlContent;
+                codeContent.classList.remove('d-none');
+            } catch (error) {
+                console.error('Error loading code:', error);
+            }
+        }
+    });
+
+    // 코드 창 닫기 기능 (선택적)
+    document.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('show-code') && 
+            !document.getElementById('code-content').contains(e.target)) {
+            document.getElementById('code-content').classList.add('d-none');
+        }
+    });
+
     init();
 }); 
