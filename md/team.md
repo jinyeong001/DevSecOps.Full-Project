@@ -1,7 +1,7 @@
 # Team Korea IT DevSecOps
 ---
 
-<img src="/img/logo.png" alt="DevSecOps Team Logo" width="200">
+<img src="/DevSecOps.Full-Project/img/logo.png" alt="DevSecOps Team Logo" width="200">
 
 ##### **기획**
 장진영 정재호 박진우 안정호 지윤정
