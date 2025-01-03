@@ -1,18 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
     const init = () => {
-        // 초기 로드 시 첫 번째 마크다운 파일 표시
-        loadMarkdownContent('1-1');
-        // 첫 번째 메인 메뉴 아이템 클릭
-        document.getElementById('main-list-item-1').click();
+        // 초기 화면 표시
+        showInitialContent();
+    }
+
+    function showInitialContent() {
+        // 모든 탭 패널 숨기기
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('show', 'active');
+        });
+        // 초기 화면 표시
+        document.getElementById('home-content').classList.add('show', 'active');
     }
 
     // 마크다운 파일 로드 및 표시 함수
     async function loadMarkdownContent(filename) {
         try {
+            // 초기 화면 숨기기
+            document.getElementById('home-content').classList.remove('show', 'active');
+            // 마크다운 콘텐츠 표시
             const response = await fetch(`md/${filename}.md`);
             const text = await response.text();
             const htmlContent = marked.parse(text);
             document.getElementById('markdown-content').innerHTML = htmlContent;
+            document.getElementById('main-list-item-1-content').classList.add('show', 'active');
         } catch (error) {
             console.error('Error loading markdown file:', error);
             document.getElementById('markdown-content').innerHTML = 'Error loading content';
@@ -64,6 +75,67 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // Navbar 링크 이벤트 처리
+    document.getElementById('nav-home').addEventListener('click', function(e) {
+        e.preventDefault();
+        showInitialContent();
+        
+        // 활성 상태 표시
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        this.classList.add('active');
+    });
+
+    document.getElementById('nav-introduction').addEventListener('click', async function(e) {
+        e.preventDefault();
+        try {
+            // 초기 화면 숨기기
+            document.getElementById('home-content').classList.remove('show', 'active');
+            
+            // introduction.md 로드
+            const response = await fetch('md/introduction.md');
+            const text = await response.text();
+            const htmlContent = marked.parse(text);
+            document.getElementById('markdown-content').innerHTML = htmlContent;
+            document.getElementById('main-list-item-1-content').classList.add('show', 'active');
+            
+            // 활성 상태 표시
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        } catch (error) {
+            console.error('Error loading introduction:', error);
+        }
+    });
+
+    document.getElementById('nav-team').addEventListener('click', async function(e) {
+        e.preventDefault();
+        try {
+            // 초기 화면 숨기기
+            document.getElementById('home-content').classList.remove('show', 'active');
+            
+            // team.md 로드
+            const response = await fetch('md/team.md');
+            const text = await response.text();
+            const htmlContent = marked.parse(text);
+            document.getElementById('markdown-content').innerHTML = htmlContent;
+            document.getElementById('main-list-item-1-content').classList.add('show', 'active');
+            
+            // 활성 상태 표시
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        } catch (error) {
+            console.error('Error loading team:', error);
+        }
+    });
+
+    // 초기화 시 Home 버튼 활성화
+    document.getElementById('nav-home').classList.add('active');
 
     init();
 }); 

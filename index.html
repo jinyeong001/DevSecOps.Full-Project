@@ -25,27 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="#" id="nav-home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="#" id="nav-introduction">Introduction</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="#" id="nav-team">Team</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -108,11 +94,11 @@
                 </div>
 
                 <a class="list-group-item list-group-item-action" id="main-list-item-6" data-bs-toggle="list"
-                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">ELK</a>
+                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">Wazuh</a>
                 <div class="collapse table-of-contents" id="toc6">
                     <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">6-1. ELK 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">6-2. ELK worker node 생성</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">6-1. Wazuh 란?</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">6-2. Wazuh worker node 생성</a>
                     </div>
                 </div>
 
@@ -137,10 +123,19 @@
             </nav>
 
             <div class="row">
-
                 <div class="col-8">
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="main-list-item-1-content" role="tabpanel"
+                        <div class="tab-pane fade show active" id="home-content" role="tabpanel">
+                            <div class="initial-content text-center">
+                                <h1 class="main-title">2025 DevSecOps 환경 구축 가이드</h1>
+                                <img src="img/logo.png" alt="DevSecOps Logo" class="logo-img my-4">
+                                <div class="footer-text">
+                                    <p class="organization">Korea IT DevSecOps</p>
+                                    <p class="date">2025. 02. 20</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="main-list-item-1-content" role="tabpanel"
                             aria-labelledby="main-list-item-1">
                             <div id="markdown-content"></div>
                         </div>
