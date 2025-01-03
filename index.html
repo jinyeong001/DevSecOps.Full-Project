@@ -1,197 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- bs5 cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <style>
-        :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f8f9fa;
-            --text-color: #333;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: var(--text-color);
-        }
-
-        .navbar {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff !important;
-        }
-
-        .navbar-brand {
-            color: var(--primary-color) !important;
-            font-weight: 600;
-        }
-
-        .nav-link {
-            color: var(--text-color) !important;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-
-        .nav-link.active {
-            color: var(--primary-color) !important;
-            font-weight: 500;
-        }
-
-        .breadcrumb {
-            background-color: var(--secondary-color);
-            padding: 0.75rem 1rem;
-            border-radius: 0.25rem;
-            margin: 1rem 0;
-        }
-
-        .breadcrumb-item+.breadcrumb-item::before {
-            color: var(--text-color);
-        }
-
-        .breadcrumb-item.active {
-            color: var(--primary-color);
-        }
-
-        .dropdown-menu {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .dropdown-item:hover {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-
-        /* 검색 관련 스타일 추가 */
-        .form-control {
-            border: 1px solid #e0e0e0;
-            border-radius: 20px;
-            padding: 8px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.1);
-        }
-
-        .btn-search {
-            border-radius: 20px;
-            padding: 8px 20px;
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-            background-color: transparent;
-            transition: all 0.3s ease;
-        }
-
-        .btn-search:hover {
-            color: white;
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        /* 브레드크럼 스타일 수정 */
-        .breadcrumb {
-            background-color: transparent;
-            padding: 0.5rem 1rem;
-            margin: 0;
-            border-radius: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .breadcrumb-item a {
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .breadcrumb-item a:hover {
-            color: var(--primary-color);
-        }
-
-        /* 목차 스타일 수정 */
-        .table-of-contents {
-            background-color: #f8f9fa;
-            border-left: 3px solid var(--primary-color);
-            max-height: 300px;
-            /* 최대 높이 설정 */
-            /* overflow-y: auto; */
-            /* 세로 스크롤 추가 */
-        }
-
-        /* 스크롤바 스타일링 */
-        /* .table-of-contents::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .table-of-contents::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .table-of-contents::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 3px;
-        }
-
-        .table-of-contents::-webkit-scrollbar-thumb:hover {
-            background: #999;
-        } */
-
-        .table-of-contents .list-group {
-            border-radius: 0;
-        }
-
-        .table-of-contents .list-group-item {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 0.7rem 1rem;
-            color: #666;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-
-        .table-of-contents .list-group-item:last-child {
-            border-bottom: none;
-        }
-
-        .table-of-contents .list-group-item:hover {
-            color: var(--primary-color);
-            background-color: rgba(74, 144, 226, 0.05);
-            padding-left: 1.5rem;
-        }
-
-        /* 목차 번호 스타일 */
-        .table-of-contents .list-group-item {
-            position: relative;
-            padding-left: 2.5rem;
-        }
-
-        .table-of-contents .list-group-item::before {
-            content: attr(data-number);
-            position: absolute;
-            left: 1rem;
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-    </style>
+    <title>DevSecOps Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">DevSecOps</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -248,14 +73,58 @@
                     href="#main-list-item-2-content" role="tab" aria-controls="main-list-item-2-content">사전 준비 사항</a>
                 <div class="collapse table-of-contents" id="toc2">
                     <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">2-1. DevSecOps 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">2. DevSecOps 의 이점</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">2-1. 사전 요구 사항</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">2-2. 사전 요구 사항 설치</a>
                     </div>
                 </div>
                 <a class="list-group-item list-group-item-action" id="main-list-item-3" data-bs-toggle="list"
-                    href="#main-list-item-3-content" role="tab" aria-controls="main-list-item-3-content">Messages</a>
+                    href="#main-list-item-3-content" role="tab" aria-controls="main-list-item-3-content">YAML 작성법</a>
+                <div class="collapse table-of-contents" id="toc3">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">3-1. yaml 이란?</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-2. 주요 필드</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-3. 워커 노드 추가</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-4. 기타 주요 필드</a>
+                    </div>
+                </div>
                 <a class="list-group-item list-group-item-action" id="main-list-item-4" data-bs-toggle="list"
-                    href="#main-list-item-4-content" role="tab" aria-controls="main-list-item-4-content">Settings</a>
+                    href="#main-list-item-4-content" role="tab" aria-controls="main-list-item-4-content">KUBERNATES</a>
+                <div class="collapse table-of-contents" id="toc4">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">4-1. kind</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">4-2. 오류 발생 또는 종류 시</a>
+                    </div>
+                </div>
+
+                <a class="list-group-item list-group-item-action" id="main-list-item-5" data-bs-toggle="list"
+                    href="#main-list-item-5-content" role="tab" aria-controls="main-list-item-5-content">JENKINS</a>
+                <div class="collapse table-of-contents" id="toc5">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">5-1. Jenkins 란?</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">5-2. DevSecOps에서의 Jenkins의 역할</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section3">5-3. Jenkins worker node 생성</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section4">5-4. Jenkins worker node 실행</a>
+                    </div>
+                </div>
+
+                <a class="list-group-item list-group-item-action" id="main-list-item-6" data-bs-toggle="list"
+                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">ELK</a>
+                <div class="collapse table-of-contents" id="toc6">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">6-1. ELK 란?</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">6-2. ELK worker node 생성</a>
+                    </div>
+                </div>
+
+                <a class="list-group-item list-group-item-action" id="main-list-item-7" data-bs-toggle="list"
+                    href="#main-list-item-7-content" role="tab" aria-controls="main-list-item-7-content">WEB 구축</a>
+                <div class="collapse table-of-contents" id="toc7">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action ps-4" href="#section1">7-1. WebPage 소스코드</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">7-2. Web worker node 생성</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section3">7-3. Web worker node 실행</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -272,27 +141,25 @@
                 <div class="col-8">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="main-list-item-1-content" role="tabpanel"
-                            aria-labelledby="main-list-item-1">...</div>
-                        <div class="tab-pane fade" id="main-list-item-2-content" role="tabpanel"
-                            aria-labelledby="main-list-item-2">...
+                            aria-labelledby="main-list-item-1">
+                            <div id="markdown-content"></div>
                         </div>
+                        <div class="tab-pane fade" id="main-list-item-2-content" role="tabpanel"
+                            aria-labelledby="main-list-item-2">...</div>
                         <div class="tab-pane fade" id="main-list-item-3-content" role="tabpanel"
-                            aria-labelledby="main-list-item-3">
-                            ...</div>
+                            aria-labelledby="main-list-item-3">...</div>
                         <div class="tab-pane fade" id="main-list-item-4-content" role="tabpanel"
-                            aria-labelledby="main-list-item-4">
-                            ...</div>
+                            aria-labelledby="main-list-item-4">...</div>
+                        <div class="tab-pane fade" id="main-list-item-5-content" role="tabpanel"
+                            aria-labelledby="main-list-item-5">...</div>
+                        <div class="tab-pane fade" id="main-list-item-6-content" role="tabpanel"
+                            aria-labelledby="main-list-item-6">...</div>
+                        <div class="tab-pane fade" id="main-list-item-7-content" role="tabpanel"
+                            aria-labelledby="main-list-item-7">...</div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
-
-
-
-
     </div>
 
     <script>

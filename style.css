@@ -1,0 +1,135 @@
+/* 사이드바 스타일 */
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    width: 300px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+/* 메인 콘텐츠 영역 스타일 */
+.main-content {
+    margin-left: 300px;
+    padding: 20px;
+}
+
+/* 목차 스타일 */
+.table-of-contents {
+    background-color: #f8f9fa;
+}
+
+/* 목차 아이템 스타일 */
+.list-group-item {
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+.list-group-item-action:hover {
+    background-color: #e9ecef;
+}
+
+/* 들여쓰기된 목차 아이템 */
+.ps-4 {
+    padding-left: 2.5rem !important;
+}
+
+/* 활성화된 목차 아이템 */
+.list-group-item.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+/* 마크다운 콘텐츠 스타일 */
+#markdown-content {
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* 링크 스타일 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 헤더 스타일 */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* 목차 collapse 애니메이션 */
+.collapse {
+    transition: all 0.2s ease;
+}
+
+/* 목차 구분선 */
+.list-group + .list-group-item {
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+
+/* 마크다운 콘텐츠 내 테이블 스타일 */
+#markdown-content table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+#markdown-content th,
+#markdown-content td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+}
+
+#markdown-content th {
+    background-color: #f8f9fa;
+}
+
+/* 코드 블록 스타일 */
+#markdown-content pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+#markdown-content code {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.875em;
+}
