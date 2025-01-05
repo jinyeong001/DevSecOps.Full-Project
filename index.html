@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 </head>
 
 <body>
@@ -48,7 +50,7 @@
         <div class="col-2">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="main-list-item-1" data-bs-toggle="list"
-                    href="#main-list-item-1-content" role="tab" aria-controls="main-list-item-1-content">DEVSECOPS</a>
+                    href="#main-list-item-1-content" role="tab" aria-controls="main-list-item-1-content">1. DEVSECOPS</a>
                 <div class="collapse table-of-contents" id="toc1">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">1-1. DevSecOps 란?</a>
@@ -56,7 +58,7 @@
                     </div>
                 </div>
                 <a class="list-group-item list-group-item-action" id="main-list-item-2" data-bs-toggle="list"
-                    href="#main-list-item-2-content" role="tab" aria-controls="main-list-item-2-content">사전 준비 사항</a>
+                    href="#main-list-item-2-content" role="tab" aria-controls="main-list-item-2-content">2. 사전 준비 사항</a>
                 <div class="collapse table-of-contents" id="toc2">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">2-1. 사전 요구 사항</a>
@@ -64,17 +66,17 @@
                     </div>
                 </div>
                 <a class="list-group-item list-group-item-action" id="main-list-item-3" data-bs-toggle="list"
-                    href="#main-list-item-3-content" role="tab" aria-controls="main-list-item-3-content">YAML 작성법</a>
+                    href="#main-list-item-3-content" role="tab" aria-controls="main-list-item-3-content">3. YAML 작성법</a>
                 <div class="collapse table-of-contents" id="toc3">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">3-1. yaml 이란?</a>
                         <a class="list-group-item list-group-item-action ps-4" href="#section2">3-2. 주요 필드</a>
                         <a class="list-group-item list-group-item-action ps-4" href="#section2">3-3. 워커 노드 추가</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-4. 기타 주요 필드</a>
+                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-4. 기타 필드</a>
                     </div>
                 </div>
                 <a class="list-group-item list-group-item-action" id="main-list-item-4" data-bs-toggle="list"
-                    href="#main-list-item-4-content" role="tab" aria-controls="main-list-item-4-content">KUBERNATES</a>
+                    href="#main-list-item-4-content" role="tab" aria-controls="main-list-item-4-content">4. KUBERNATES</a>
                 <div class="collapse table-of-contents" id="toc4">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">4-1. kind</a>
@@ -83,7 +85,7 @@
                 </div>
 
                 <a class="list-group-item list-group-item-action" id="main-list-item-5" data-bs-toggle="list"
-                    href="#main-list-item-5-content" role="tab" aria-controls="main-list-item-5-content">JENKINS</a>
+                    href="#main-list-item-5-content" role="tab" aria-controls="main-list-item-5-content">5. JENKINS</a>
                 <div class="collapse table-of-contents" id="toc5">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">5-1. Jenkins 란?</a>
@@ -94,7 +96,7 @@
                 </div>
 
                 <a class="list-group-item list-group-item-action" id="main-list-item-6" data-bs-toggle="list"
-                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">Wazuh</a>
+                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">6. Wazuh</a>
                 <div class="collapse table-of-contents" id="toc6">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">6-1. Wazuh 란?</a>
@@ -103,7 +105,7 @@
                 </div>
 
                 <a class="list-group-item list-group-item-action" id="main-list-item-7" data-bs-toggle="list"
-                    href="#main-list-item-7-content" role="tab" aria-controls="main-list-item-7-content">WEB 구축</a>
+                    href="#main-list-item-7-content" role="tab" aria-controls="main-list-item-7-content">7. WEB 구축</a>
                 <div class="collapse table-of-contents" id="toc7">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action ps-4" href="#section1">7-1. WebPage 소스코드</a>
@@ -155,7 +157,9 @@
                 </div>
                 <div class="col-4">
                     <div id="code-content" class="d-none">
-                        <!-- 코드가 표시될 영역 -->
+                        <pre><code class="yaml hljs">
+                            <!-- 코드가 표시될 영역 -->
+                        </code></pre>
                     </div>
                 </div>
             </div>
@@ -207,6 +211,11 @@
                 });
             });
             init();
+
+            // 코드 하이라이팅 초기화
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
         });
 
 

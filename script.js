@@ -16,14 +16,29 @@ document.addEventListener('DOMContentLoaded', function () {
     // 마크다운 파일 로드 및 표시 함수
     async function loadMarkdownContent(filename) {
         try {
-            // 초기 화면 숨기기
             document.getElementById('home-content').classList.remove('show', 'active');
-            // 마크다운 콘텐츠 표시
             const response = await fetch(`md/${filename}.md`);
             const text = await response.text();
+            
+            // marked 옵션 설정
+            marked.setOptions({
+                breaks: true,        // 줄바꿈 활성화
+                gfm: true,          // GitHub Flavored Markdown 활성화
+                pedantic: false,
+                sanitize: false,
+                smartLists: true,
+                smartypants: false,
+                xhtml: false
+            });
+            
             const htmlContent = marked.parse(text);
             document.getElementById('markdown-content').innerHTML = htmlContent;
             document.getElementById('main-list-item-1-content').classList.add('show', 'active');
+            
+            // 코드 블록에 하이라이팅 적용 (선택사항)
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
         } catch (error) {
             console.error('Error loading markdown file:', error);
             document.getElementById('markdown-content').innerHTML = 'Error loading content';
@@ -141,29 +156,56 @@ document.addEventListener('DOMContentLoaded', function () {
     // 초기화 시 Home 버튼 활성화
     document.getElementById('nav-home').classList.add('active');
 
-    // 코드 표시 기능 추가
+    // 코드 표시 기능 수정
     document.addEventListener('click', async function(e) {
         if (e.target.classList.contains('show-code')) {
             e.preventDefault();
+            e.stopPropagation(); // 이벤트 전파 중단
+            
+            // 현재 열려있는 collapse 요소들을 유지하기 위해 강제로 show 클래스 추가
+            document.querySelectorAll('.table-of-contents.show').forEach(toc => {
+                toc.classList.add('show');
+                // bootstrap collapse 인스턴스가 있다면 dispose
+                const bsCollapse = bootstrap.Collapse.getInstance(toc);
+                if (bsCollapse) {
+                    bsCollapse.dispose();
+                }
+            });
+
             const codeFile = e.target.dataset.codeFile;
             try {
                 const response = await fetch(`code/${codeFile}.md`);
                 const text = await response.text();
+                
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        return hljs.highlightAuto(code).value;
+                    }
+                });
+                
                 const htmlContent = marked.parse(text);
                 
                 const codeContent = document.getElementById('code-content');
                 codeContent.innerHTML = htmlContent;
                 codeContent.classList.remove('d-none');
+                
+                document.querySelectorAll('#code-content pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
             } catch (error) {
                 console.error('Error loading code:', error);
             }
         }
     });
 
-    // 코드 창 닫기 기능 (선택적)
+    // 코드 창 닫기 기능 수정
     document.addEventListener('click', function(e) {
-        if (!e.target.classList.contains('show-code') && 
-            !document.getElementById('code-content').contains(e.target)) {
+        if (e.target.classList.contains('show-code') || 
+            document.getElementById('code-content').contains(e.target)) {
+            return;
+        }
+        
+        if (e.target.closest('.list-group-item') || e.target.closest('.nav-item')) {
             document.getElementById('code-content').classList.add('d-none');
         }
     });
