@@ -1,0 +1,75 @@
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: jenkins
+    labels:
+        app: jenkins
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: jenkins
+    template:
+        metadata:
+            labels:
+                app: jenkins
+        spec:
+            nodeSelector:
+                purpose: jenkins
+            securityContext:
+                runAsUser: 0
+                fsGroup: 0
+            initContainers:
+            - name: init-jenkins-home
+                image: busybox
+                command: ['sh', '-c', 'mkdir -p /var/jenkins_home && chown -R 1000:1000 /var/jenkins_home']
+                volumeMounts:
+                - name: jenkins-home
+                    mountPath: /var/jenkins_home
+            containers:
+            - name: jenkins
+                image: jenkins/jenkins:lts
+                ports:
+                - containerPort: 8080
+                    name: http
+                - containerPort: 50000
+                    name: jnlp
+                volumeMounts:
+                - name: jenkins-home
+                    mountPath: /var/jenkins_home
+                env:
+                - name: JAVA_OPTS
+                    value: "-Xmx2048m"
+                resources:
+                    limits:
+                        memory: "2Gi"
+                        cpu: "1000m"
+                    requests:
+                        memory: "1Gi"
+                        cpu: "500m"
+                startupProbe:
+                    httpGet:
+                        path: /login
+                        port: 8080
+                    failureThreshold: 30
+                    periodSeconds: 10
+                readinessProbe:
+                    httpGet:
+                        path: /login
+                        port: 8080
+                    initialDelaySeconds: 60
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+                livenessProbe:
+                    httpGet:
+                        path: /login
+                        port: 8080
+                    initialDelaySeconds: 60
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+            volumes:
+            - name: jenkins-home
+                persistentVolumeClaim:
+                    claimName: jenkins-pvc
+```

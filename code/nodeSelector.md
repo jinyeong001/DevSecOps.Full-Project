@@ -1,10 +1,7 @@
 ```
-spec:
-  template:
-    spec:
-      nodeSelector:
-        node-type: webserver
+nodeSelector:
+    node-type: database
+
 ```
 
-**nodeSelector**: 특정 노드에서 실행되도록 지정
-**node-type**: 노드 유형을 지정
+**※ node-type=database 레이블이 설정된 노드에서 Pod가 실행되도록 지정합니다.**

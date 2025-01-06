@@ -1,0 +1,28 @@
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: jenkins-pv
+    labels:
+        type: local
+spec:
+    storageClassName: manual
+    capacity:
+        storage: 10Gi
+    accessModes:
+        - ReadWriteOnce
+    hostPath:
+        path: "/data/jenkins-volume"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: jenkins-pvc
+spec:
+    storageClassName: manual
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi
+```
