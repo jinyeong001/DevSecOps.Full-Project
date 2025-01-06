@@ -2,20 +2,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: jenkins
-    labels:
-        app: jenkins
+  name: jenkins
+  labels:
+    app: jenkins
 spec:
-    type: NodePort
-    ports:
-    - port: 8080
-        targetPort: 8080
-        nodePort: 30800
-        name: http
-    - port: 50000
-        targetPort: 50000
-        nodePort: 30850
-        name: jnlp
-    selector:
-        app: Jenkins
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30800
+    name: http
+  - port: 50000
+    targetPort: 50000
+    nodePort: 30850
+    name: jnlp
+  selector:
+    app: Jenkins
 ```
