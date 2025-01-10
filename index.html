@@ -1,20 +1,373 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevSecOps Guide</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <title>Document</title>
+    <!-- bs5 cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- marked cdn -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <!-- highlight cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(74, 144, 226, 0.3) transparent;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff !important;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+        }
+
+        .breadcrumb {
+            background-color: var(--secondary-color);
+            /* padding: 0.75rem 1rem; */
+            /* border-radius: 0.25rem; */
+            /* margin: 1rem 0; */
+
+            background-color: transparent;
+            padding: 0.5rem 1rem;
+            margin: 0;
+            border-radius: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+            border-bottom: 1px solid #f8f9fa;
+            width: 100%;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .breadcrumb-item+.breadcrumb-item::before {
+            color: var(--text-color);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-color);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* 스크롤바 스타일 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(74, 144, 226, 0.3);
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(74, 144, 226, 0.5);
+        }
+
+
+
+        .mdc {
+            overflow-y: auto;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+            padding: 0px;
+        }
+
+        .mdc-content {
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 400px;
+            max-height: calc(105vh - 150px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(74, 144, 226, 0.3) transparent;
+        }
+
+        .mdc-pin {
+            max-height: calc(109vh - 150px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(74, 144, 226, 0.3) transparent;
+            padding: 10px;
+            border-left: 1px solid #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 웹킷 기반 브라우저를 위한 스크롤바 스타일 */
+        .mdc-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .mdc-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .mdc-content::-webkit-scrollbar-thumb {
+            background: rgba(74, 144, 226, 0.3);
+            border-radius: 4px;
+        }
+
+        .mdl {
+            border-right: 1px solid var(--primary-color);
+            /* border: 1px solid #e0e0e0; */
+            padding: 0px;
+
+
+        }
+
+        /* 검색 관련 스타일 추가 */
+        .form-control {
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.1);
+        }
+
+        .btn-search {
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            color: white;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .breadcrumb-item a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 목차 스타일 수정 */
+        .table-of-contents {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .table-of-contents .list-group {
+            border-radius: 0;
+            max-height: calc(80vh - 150px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(74, 144, 226, 0.3) transparent;
+        }
+
+        .table-of-contents .list-group-item {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.7rem 1rem;
+            color: #666;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .table-of-contents .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .table-of-contents .list-group-item:hover {
+            color: var(--primary-color);
+            background-color: rgba(74, 144, 226, 0.05);
+            /* padding-left: 1.5rem; */
+        }
+
+        /* 목차 번호 스타일 */
+        .table-of-contents .list-group-item {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .table-of-contents .list-group-item::before {
+            content: attr(data-number);
+            position: absolute;
+            left: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .cl-btn-group {
+            margin-top: 10px;
+        }
+
+        /* 핀 텝 css */
+        .mdc-ped {
+            margin-top: 10px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* height: 100%; */
+            position: relative;
+            z-index: 1;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .mdc-ped-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .mdc-ped-close:hover {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+
+        .mdc-ped-body {
+            padding: 15px;
+            padding-top: 40px;
+            /* height: calc(100% - 25px); */
+            /* overflow-y: auto; */
+        }
+
+        .mdc-ped-content {
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 코드 블럭 css */
+        /* .code-block-card {
+            position: relative;
+            background-color: #34343418;
+            border-radius: 8px;
+            padding: 40px 20px 20px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        } */
+
+        .code-block-copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            background-color: #3434343f;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .code-block-pin {
+            position: absolute;
+            top: 10px;
+            right: 60px;
+            font-size: 12px;
+            background-color: #3434343f;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* .code-block-content {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+        } */
+
+        .code-block-copy:hover {
+            background-color: #357ab7;
+        }
+
+        .code-block-pin:hover {
+            background-color: #357ab7;
+        }
+
+        .col-8 {
+            padding-right: 0px;
+        }
+    </style>
 </head>
 
-<body>
+<body class="">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -27,13 +380,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-home">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-introduction">Introduction</a>
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-team">Team</a>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -47,118 +414,47 @@
 
     <div class="container-fluid justify-content-center d-flex p-0">
 
-        <div class="col-2">
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="main-list-item-1" data-bs-toggle="list"
-                    href="#main-list-item-1-content" role="tab" aria-controls="main-list-item-1-content">1. DEVSECOPS</a>
-                <div class="collapse table-of-contents" id="toc1">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">1-1. DevSecOps 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">1-2. DevSecOps 의 이점</a>
-                    </div>
-                </div>
-                <a class="list-group-item list-group-item-action" id="main-list-item-2" data-bs-toggle="list"
-                    href="#main-list-item-2-content" role="tab" aria-controls="main-list-item-2-content">2. 사전 준비 사항</a>
-                <div class="collapse table-of-contents" id="toc2">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">2-1. 사전 요구 사항</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">2-2. 사전 요구 사항 설치</a>
-                    </div>
-                </div>
-                <a class="list-group-item list-group-item-action" id="main-list-item-3" data-bs-toggle="list"
-                    href="#main-list-item-3-content" role="tab" aria-controls="main-list-item-3-content">3. YAML 작성법</a>
-                <div class="collapse table-of-contents" id="toc3">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">3-1. yaml 이란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-2. 주요 필드</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-3. 워커 노드 추가</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">3-4. 기타 필드</a>
-                    </div>
-                </div>
-                <a class="list-group-item list-group-item-action" id="main-list-item-4" data-bs-toggle="list"
-                    href="#main-list-item-4-content" role="tab" aria-controls="main-list-item-4-content">4. KUBERNATES</a>
-                <div class="collapse table-of-contents" id="toc4">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">4-1. Kubernetes 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">4-2. DevSecOps에서 Kubernetes의 역할</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section3">4-3. kind</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section4">4-4. 오류 발생 또는 종류 시</a>
-                    </div>
-                </div>
-
-                <a class="list-group-item list-group-item-action" id="main-list-item-5" data-bs-toggle="list"
-                    href="#main-list-item-5-content" role="tab" aria-controls="main-list-item-5-content">5. JENKINS</a>
-                <div class="collapse table-of-contents" id="toc5">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">5-1. Jenkins 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">5-2. DevSecOps에서의 Jenkins의 역할</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section3">5-3. Jenkins worker node 생성</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section4">5-4. Jenkins worker node 실행</a>
-                    </div>
-                </div>
-
-                <a class="list-group-item list-group-item-action" id="main-list-item-6" data-bs-toggle="list"
-                    href="#main-list-item-6-content" role="tab" aria-controls="main-list-item-6-content">6. Wazuh</a>
-                <div class="collapse table-of-contents" id="toc6">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">6-1. Wazuh 란?</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">6-2. Wazuh worker node 생성</a>
-                    </div>
-                </div>
-
-                <a class="list-group-item list-group-item-action" id="main-list-item-7" data-bs-toggle="list"
-                    href="#main-list-item-7-content" role="tab" aria-controls="main-list-item-7-content">7. WEB 구축</a>
-                <div class="collapse table-of-contents" id="toc7">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action ps-4" href="#section1">7-1. WebPage 소스코드</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section2">7-2. Web worker node 생성</a>
-                        <a class="list-group-item list-group-item-action ps-4" href="#section3">7-3. Web worker node 실행</a>
-                    </div>
-                </div>
+        <div class="col-2 mdl">
+            <div class="list-group" id="nav-list-tab" role="tablist">
+                <!-- 목차 생성 위치 -->
             </div>
         </div>
 
         <div class="col-10">
-            <div class="row">
+
+
+
+            <div class="row mdc col-12">
+
                 <div class="col-8">
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="home-content" role="tabpanel">
-                            <div class="initial-content text-center">
-                                <h1 class="main-title"><br><br>2025 DevSecOps 환경 구축 가이드</h1>
-                                <img src="img/logo.png" alt="DevSecOps Logo" class="logo-img my-4">
-                                <div class="footer-text">
-                                    <p class="organization">Korea IT DevSecOps</p>
-                                    <p class="date">2025. 02. 20</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="main-list-item-1-content" role="tabpanel"
-                            aria-labelledby="main-list-item-1">
-                            <div id="markdown-content"></div>
-                        </div>
-                        <div class="tab-pane fade" id="main-list-item-2-content" role="tabpanel"
-                            aria-labelledby="main-list-item-2"></div>
-                        <div class="tab-pane fade" id="main-list-item-3-content" role="tabpanel"
-                            aria-labelledby="main-list-item-3"></div>
-                        <div class="tab-pane fade" id="main-list-item-4-content" role="tabpanel"
-                            aria-labelledby="main-list-item-4"></div>
-                        <div class="tab-pane fade" id="main-list-item-5-content" role="tabpanel"
-                            aria-labelledby="main-list-item-5"></div>
-                        <div class="tab-pane fade" id="main-list-item-6-content" role="tabpanel"
-                            aria-labelledby="main-list-item-6"></div>
-                        <div class="tab-pane fade" id="main-list-item-7-content" role="tabpanel"
-                            aria-labelledby="main-list-item-7"></div>
+                    <nav class="breadcrumb-bar" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                    <div class="tab-content bg-light" id="nav-tabContent">
+                        <!-- 문서 콘텐츠 생성 위치 -->
                     </div>
                 </div>
-                <div class="col-4">
-                    <div id="code-content" class="d-none">
-                        <pre><code class="yaml hljs">
-                            <!-- 코드가 표시될 영역 -->
-                        </code></pre>
-                    </div>
+                <div class="col-4 mdc-pin bg-light">
+                    <!-- 핀 생성 위치 -->
+
                 </div>
+
             </div>
+
+
+
         </div>
+
+
+
+
+
+
+
+
     </div>
 
     <script>
@@ -167,50 +463,453 @@
         document.addEventListener('DOMContentLoaded', function () {
 
 
-            const init = () => {
 
-                document.getElementById('main-list-item-1').click();
+            const nav_list_tab = document.getElementById('nav-list-tab');
+            const nav_tab_content = document.getElementById('nav-tabContent');
+            const mdc_pin = document.querySelector('.mdc-pin');
+
+
+            const init = async () => {
+
+
+
+                // 마크다운 파일 추가하는 곳
+                await loadContent(1, 'introduction');
+                await loadContent(2, '1');
+                await loadContent(3, '2');
+                await loadContent(4, '3');
+                await loadContent(5, '4');
+                await loadContent(6, '5');
+                await loadContent(7, '6');
+                await loadContent(8, '7');
+
+
+                await setActiveTab();
+
+                await document.getElementById('main-list-item-1').click();
+
+
+            }
+
+            // 목차 리스트를 생성하는 함수
+            const createListTab = (index, title) => {
+                let isActive = false;
+
+                if (index === 1) {
+                    isActive = true;
+                }
+
+                const a = document.createElement('a');
+                a.classList.add('list-group-item', 'list-group-item-action');
+                if (isActive) {
+                    a.classList.add('active');
+                }
+                a.id = 'main-list-item-' + index;
+                a.setAttribute('data-bs-toggle', 'list');
+                a.href = '#main-list-item-' + index + '-content';
+                a.role = 'tab';
+                a.setAttribute('aria-controls', 'main-list-item-' + index + '-content');
+                a.setAttribute('aria-selected', isActive);
+                a.textContent = title;
+                return a;
+
+            }
+
+            // 목차 리스트의 컨텐츠를 생성하는 함수
+            const createTabContent = (index, text) => {
+                let isActive = false;
+
+                if (index === 1) {
+                    isActive = true;
+                }
+
+                const div = document.createElement('div');
+                div.classList.add('tab-pane', 'fade', 'mdc-content');
+                if (isActive) {
+                    div.classList.add('show', 'active');
+                }
+                div.id = 'main-list-item-' + index + '-content';
+                div.role = 'tabpanel';
+                div.setAttribute('aria-labelledby', 'main-list-item-' + index);
+                div.innerHTML = text;
+
+                return div;
+
+            }
+
+            // const createCodeBlock = (index) => {
+            //     // 코드 블럭 적용
+            //     const codeBlocks = document.querySelectorAll('#main-list-item-' + index + '-content code');
+            //     for (const code of codeBlocks) {
+
+            //         const text = code.textContent;
+            //         code.textContent = '';
+
+            //         const code_block_card = document.createElement('div');
+            //         code_block_card.classList.add('code-block-card');
+
+            //         const code_block_copy = document.createElement('div');
+            //         code_block_copy.classList.add('code-block-copy');
+            //         code_block_copy.textContent = 'COPY';
+
+            //         const code_block_content = document.createElement('div');
+            //         code_block_content.classList.add('code-block-content');
+            //         code_block_content.textContent = text;
+
+
+            //         code_block_card.appendChild(code_block_copy);
+            //         code_block_card.appendChild(code_block_content);
+
+            //         code.appendChild(code_block_card);
+            //     };
+            // }
+
+            // 파일 로드 및 마크다운 문법 적용 함수
+            const loadMdFile = async (dir, filename, option) => {
+                const response = await fetch(`${dir}/${filename}.md`);
+                const mdtext = await response.text();
+
+                // marked.js 옵션 설정
+                const renderer = new marked.Renderer();
+
+                // 코드 블록 내부의 마크다운 파싱 방지
+                renderer.code = (code, language) => {
+                    const validLanguage = hljs.getLanguage(language) ? language : '';
+                    let highlightedCode = code.text;
+
+                    if (validLanguage) {
+                        try {
+                            highlightedCode = hljs.highlight(code, { language: validLanguage }).value;
+                        } catch (err) {
+                            console.error(err);
+                        }
+                    }
+
+                    const preElement = document.createElement('pre');
+                    preElement.style.position = 'relative';
+
+                    const codeElement = document.createElement('code');
+                    codeElement.className = `hljs ${validLanguage}`;
+                    codeElement.innerHTML = highlightedCode;
+
+                    preElement.appendChild(codeElement);
+
+                    return preElement.outerHTML;
+                };
+
+                marked.setOptions({
+                    ...option,
+                    renderer: renderer,
+                    gfm: true,
+                    pedantic: false
+                });
+
+                const html = marked.parse(mdtext);
+
+                return html;
+            }
+
+            // 코드 블럭의 핀, 카피 버튼 추가 함수
+            // 원래는 코드 블록 생성과 동시에 생성되게 하고싶었지만 마크다운 커스텀 렌더러의 반환 방식 때문에 이벤트리스너가 지워져서 따로 처리함
+            const createCodeBlockSubBtn = (index, setpin) => {
+                const codeBlocks = document.querySelectorAll('#main-list-item-' + index + '-content pre');
+                for (const code of codeBlocks) {
+
+                    if (setpin) {
+
+                        const pinButton = document.createElement('div');
+                        pinButton.classList.add('code-block-pin');
+                        pinButton.textContent = '📌';
+
+                        code.appendChild(pinButton);
+
+                    }
+                    const copyButton = document.createElement('div');
+                    copyButton.classList.add('code-block-copy');
+                    copyButton.textContent = 'COPY';
+                    copyButton.addEventListener('click', () => {
+                        console.log('copied');
+                        const text = code.querySelector('code').textContent;
+                        navigator.clipboard.writeText(text).then(() => {
+                            alert('Code copied to clipboard!');
+                        }).catch((error) => {
+                            console.error('Error copying text: ', error);
+                        });
+                        alert('copied');
+                    });
+
+                    code.appendChild(copyButton);
+
+
+                }
+
+            }
+
+            // 콜렙스 메모 생성 함수
+            const createClPin = (htmlContent, id) => {
+                const div = document.createElement('div');
+                div.classList.add('mdc-ped');
+
+                const div2 = document.createElement('div');
+                div2.classList.add('mdc-ped-close');
+                div2.textContent = 'X';
+                div2.addEventListener('click', () => {
+                    div.remove();
+                    localStorage.removeItem(id);
+                });
+                div.appendChild(div2);
+
+                const div3 = document.createElement('div');
+                div3.classList.add('mdc-ped-body');
+                div.appendChild(div3);
+
+                const div4 = document.createElement('div');
+                div4.classList.add('mdc-ped-content');
+                div4.innerHTML = htmlContent;
+                div3.appendChild(div4);
+
+                return div;
+
+            }
+
+            // 펼치기 등록 함수
+            const createCollepse = async (index) => {
+                const collepses = document.querySelectorAll('#main-list-item-' + index + '-content mdf');
+                let collapseCount = 0;
+
+                for (const colleps of collepses) {
+                    const id = 'collapse-' + index + '-' + collapseCount++;
+                    const filename = colleps.textContent;
+                    const option = {
+                        breaks: true,
+                        gfm: true,
+                        pedantic: true,
+                        sanitize: true,
+                        smartlists: true,
+                        smartypants: true,
+                        xhtml: true
+                    };
+                    const htmlContent = await loadMdFile('code', filename, option)
+                    colleps.textContent = '';
+
+                    const cl_btn_group = document.createElement('div');
+                    cl_btn_group.classList.add('d-flex', 'cl-btn-group')
+
+                    // const cla = document.createElement('a');
+                    // cla.setAttribute('data-bs-toggle', 'collapse');
+                    // cla.setAttribute('role', 'button');
+                    // cla.setAttribute('aria-expanded', 'false');
+                    // cla.setAttribute('aria-controls', id);
+                    // cla.href = '#' + id;
+                    // cla.textContent = '펼치기';
+                    // colleps.appendChild(cla);
+
+                    const cl_md_btn = document.createElement('button');
+                    cl_md_btn.classList.add('btn', 'btn-primary');
+                    cl_md_btn.setAttribute('data-bs-toggle', 'collapse');
+                    cl_md_btn.setAttribute('type', 'button');
+                    cl_md_btn.setAttribute('data-bs-target', '#' + id)
+                    cl_md_btn.setAttribute('aria-expanded', 'false');
+                    cl_md_btn.setAttribute('aria-controls', id);
+                    cl_md_btn.textContent = '펼치기';
+
+                    const cl_md_pin_btn = document.createElement('button');
+                    cl_md_pin_btn.classList.add('btn', 'btn-success');
+                    cl_md_pin_btn.textContent = '📌';
+                    cl_md_pin_btn.addEventListener('click', () => {
+
+                        // 로컬 스토리지에 해당 핀이 이미 있는지 확인하고 없다면 생성
+                        if (localStorage.getItem(id) === null) {
+                            localStorage.setItem(id, id);
+                            const mdc = createClPin(htmlContent, id);
+                            mdc_pin.appendChild(mdc);
+                        }
+
+                    });
+
+                    // 로컬 스토리지에 해당 핀이 이미 있는지 확인하고 있다면 생성
+                    if (localStorage.getItem(id) !== null) {
+                        const mdc = createClPin(htmlContent, id);
+                        mdc_pin.appendChild(mdc);
+                    }
+
+
+                    cl_btn_group.appendChild(cl_md_btn);
+                    cl_btn_group.appendChild(cl_md_pin_btn);
+                    colleps.appendChild(cl_btn_group);
+
+
+
+                    const cls = document.createElement('a')
+
+
+                    const cl = document.createElement('div');
+                    cl.classList.add('collapse');
+                    cl.id = id;
+
+                    const clc = document.createElement('div');
+                    clc.classList.add('card', 'card-body');
+                    clc.innerHTML = htmlContent;
+
+                    cl.appendChild(clc);
+                    colleps.appendChild(cl);
+                };
+            }
+
+
+
+
+
+            // 목차 생성 함수
+            const createSubeMenu = (index) => {
+                const mainItem = document.getElementById('main-list-item-' + index);
+                const headers = document.querySelectorAll('#main-list-item-' + index + '-content h1, #main-list-item-' + index + '-content h2, #main-list-item-' + index + '-content h6');
+                const sub_list_item = document.getElementById('sub-list-item-' + index);
+
+                let istitle = true;
+                headers.forEach((header, idx) => {
+                    // 각 헤더에 고유 ID 부여
+                    const headerId = `header-${index}-${idx}`;
+                    // 타이틀 용 h1을 하나만 찾기위한 변수
+                    header.id = headerId;
+
+
+                    if (header.tagName === 'H1') {
+                        // 타이틀 용 h1 하나만 적용
+                        if (istitle) {
+                            mainItem.textContent = header.textContent;
+                            istitle = false;
+                            console.log('istitle count')
+                        }
+
+
+                    } else if (header.tagName === 'H2') {
+                        const a = document.createElement('a');
+                        a.classList.add('list-group-item', 'list-group-item-action', 'ps-4');
+                        a.href = '#' + headerId;
+                        a.textContent = '└ ' + header.textContent;
+
+                        // 클릭 이벤트 추가
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        });
+
+                        sub_list_item.appendChild(a);
+                    } else if (header.tagName === 'H6') {
+                        const a = document.createElement('a');
+                        a.classList.add('list-group-item', 'list-group-item-action', 'ps-8');
+                        a.href = '#' + headerId;
+                        a.textContent = '└ ' + header.textContent;
+
+                        // 클릭 이벤트 추가
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        });
+
+                        sub_list_item.appendChild(a);
+                    }
+                });
+            }
+
+            // 콘텐츠 생성 함수
+            const loadContent = async (index, filename) => {
+
+                const option = {
+                    breaks: true,
+                    gfm: true,
+                    pedantic: true,
+                    sanitize: true,
+                    smartlists: true,
+                    smartypants: true,
+                    xhtml: true
+                }
+
+                const htmlContent = await loadMdFile('md', filename, option);
+
+                // 서브 메뉴를 위한 틀
+                const subListTab = (index) => {
+                    const div = document.createElement('div');
+                    div.classList.add('collapse', 'table-of-contents');
+                    div.id = 'toc' + index;
+
+                    const div2 = document.createElement('div');
+                    div2.classList.add('list-group');
+                    div2.id = 'sub-list-item-' + index;
+                    div.appendChild(div2);
+
+                    return div;
+                }
+
+
+
+                await nav_list_tab.appendChild(createListTab(index, filename));
+                await nav_list_tab.appendChild(subListTab(index));
+                await nav_tab_content.appendChild(createTabContent(index, htmlContent));
+                await createSubeMenu(index);
+                await createCollepse(index);
+                await createCodeBlockSubBtn(index, true);
+                // await createCodeBlock(index);
+
+
 
             }
 
 
-            // bs5의 기능 중복이 안되서 직접 자바스크립트로 구현
-            // bs의 콜랩스 기능을 통해 목차를 생성
-            // 모든 메인메뉴 아이탬들을 가져오기
-            const mainListItems = document.querySelectorAll('[id^="main-list-item-"]');
 
-            // 각각의 아이탬들에 콜랩스 기능을 추가
-            mainListItems.forEach(item => {
-                // 클릭 이벤트
-                item.addEventListener('click', function (e) {
-                    const tocId = 'toc' + this.id.split('-').pop();
+            const setActiveTab = () => {
+                // bs5의 기능 중복이 안되서 직접 자바스크립트로 구현
+                // bs의 콜랩스 기능을 통해 목차를 생성
+                // 메인 메뉴 아이템들만 선택 (content는 제외)
+                const mainListItems = document.querySelectorAll('.list-group-item[id^="main-list-item-"]:not([id$="-content"])');
 
-                    // 다른 모든 목차 닫기
-                    document.querySelectorAll('.table-of-contents').forEach(toc => {
-                        if (toc.id !== tocId && toc.classList.contains('show')) {
-                            // 부트스트랩 collapse 인스턴스 가져오기
-                            const bsCollapse = bootstrap.Collapse.getInstance(toc);
-                            if (bsCollapse) {
-                                bsCollapse.hide();
+                // 각각의 아이템들에 콜랩스 기능을 추가
+                mainListItems.forEach(item => {
+                    // 클릭 이벤트
+                    item.addEventListener('click', function (e) {
+                        const tocId = 'toc' + this.id.split('-').pop();
+
+                        // 다른 모든 목차 닫기
+                        document.querySelectorAll('.table-of-contents').forEach(toc => {
+                            if (toc.id !== tocId && toc.classList.contains('show')) {
+                                // 부트스트랩 collapse 인스턴스 가져오기
+                                const bsCollapse = bootstrap.Collapse.getInstance(toc);
+                                if (bsCollapse) {
+                                    bsCollapse.hide();
+                                }
                             }
+                        });
+
+                        // 현재 목차 토글
+                        const tocElement = document.getElementById(tocId);
+                        if (tocElement) {
+                            const bsCollapse = new bootstrap.Collapse(tocElement, {
+                                toggle: true
+                            });
                         }
                     });
-
-                    // 현재 목차 토글
-                    const tocElement = document.getElementById(tocId);
-                    if (tocElement) {
-                        const bsCollapse = new bootstrap.Collapse(tocElement, {
-                            toggle: true
-                        });
-                    }
                 });
-            });
+
+            }
+
+            // 부스트르랩5 리스트 그룹 초기화
+            const initializeTabBehavior = () => {
+                const triggerTabList = document.querySelectorAll('[data-bs-toggle="list"]');
+                triggerTabList.forEach(triggerEl => {
+                    const tabTrigger = new bootstrap.Tab(triggerEl);
+                    triggerEl.addEventListener('click', event => {
+                        event.preventDefault();
+                        tabTrigger.show();
+                    });
+                });
+            }
+
+
+
             init();
 
-            // 코드 하이라이팅 초기화
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
+            initializeTabBehavior();
         });
 
 
