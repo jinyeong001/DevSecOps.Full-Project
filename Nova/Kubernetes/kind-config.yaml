@@ -12,40 +12,6 @@ nodes:
     listenAddress: "0.0.0.0"
     protocol: TCP
 
-  # Kibana 서비스 포트 (내부 통신용)
-  # - Elasticsearch 데이터 시각화 도구
-  # - 내부 서비스 통신용
-  - containerPort: 30601
-    hostPort: 5601
-    listenAddress: "0.0.0.0"
-    protocol: TCP
-
-  # Elasticsearch HTTP API 포트
-  # - 로그 및 데이터 저장소
-  # - REST API 엔드포인트
-  # - 호스트 접근: http://localhost:9200
-  - containerPort: 30920
-    hostPort: 9200
-    listenAddress: "0.0.0.0"
-    protocol: TCP
-
-  # Logstash Beats 입력 포트
-  # - 로그 수집기
-  # - Filebeat 등의 데이터 수집기와 통신
-  # - 호스트 접근: localhost:5044
-  - containerPort: 5044
-    hostPort: 5044
-    listenAddress: "0.0.0.0"
-    protocol: TCP
-
-  # Kibana 웹 인터페이스 포트
-  # - Elasticsearch 데이터 시각화 웹 UI
-  # - 호스트 접근: http://localhost:30601
-  - containerPort: 5601
-    hostPort: 30601
-    listenAddress: "0.0.0.0"
-    protocol: TCP
-
   # Jenkins 웹 인터페이스 포트
   # - CI/CD 파이프라인 관리 웹 UI
   # - 빌드 및 배포 모니터링
@@ -61,6 +27,14 @@ nodes:
   # - 호스트 접근: localhost:50000
   - containerPort: 30850
     hostPort: 50000
+    listenAddress: "0.0.0.0"
+    protocol: TCP
+
+# SonarQube 웹 인터페이스 포트
+  # - 코드 품질 분석 웹 UI
+  # - 호스트 접근: http://localhost:30900
+  - containerPort: 30900
+    hostPort: 30900
     listenAddress: "0.0.0.0"
     protocol: TCP
 
@@ -81,12 +55,6 @@ nodes:
   labels:
     node-type: backup-db
     purpose: backup-storage
-
-# 워커 노드 4: ELK
-- role: worker
-  labels:
-    node-type: elk
-    purpose: elk-stack
 
 # 워커 노드 5: 로그 DB
 - role: worker

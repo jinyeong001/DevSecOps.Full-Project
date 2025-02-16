@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarqube
+spec:
+  type: NodePort
+  ports:
+  - port: 9000
+    targetPort: 9000
+    nodePort: 30900
+  selector:
+    app: sonarqube
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonar-postgres
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: sonar-postgres

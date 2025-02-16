@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      nodeSelector:
+        node-type: jenkins
+        purpose: jenkins
+      initContainers:
+      - name: init-sysctl
+        image: busybox:1.28
+        command:
+        - sysctl
+        - -w
+        - vm.max_map_count=262144
+        securityContext:
+          privileged: true
+      containers:
+      - name: sonarqube
+        image: sonarqube:8.9.9-community
+        ports:
+        - containerPort: 9000
+        env:
+        - name: SONAR_JDBC_USERNAME
+          value: sonar
+        - name: SONAR_JDBC_PASSWORD
+          value: sonarpass
+        - name: SONAR_JDBC_URL
+          value: jdbc:postgresql://sonar-postgres:5432/sonar
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/data
+        - name: sonar-extensions
+          mountPath: /opt/sonarqube/extensions
+      volumes:
+      - name: sonar-data
+        emptyDir: {}
+      - name: sonar-extensions
+        emptyDir: {}
